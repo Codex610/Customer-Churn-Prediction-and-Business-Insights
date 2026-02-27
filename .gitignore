@@ -23,7 +23,78 @@ __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
+.Python# ========================
+# DATA — raw data ignored, but .dvc pointer files must be tracked
+# ========================
+data/raw/telco_churn.csv
+data/processed/
+!data/raw/telco_churn.csv.dvc
+!data/.gitkeep
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# ========================
+# Models — tracked by DVC, binaries ignored
+# ========================
+models/*.pkl
+!models/.gitkeep
+!models/scaler.pkl.dvc
+!models/best_model.pkl.dvc
+
+# ========================
+# MLflow
+# ========================
+mlruns/
+mlflow/
+
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
 .Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ========================
+# Virtual Environments
+# ========================
+venv/
+env/
+.env
+.venv/
+
+# ========================
+# Jupyter Notebooks
+# ========================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ========================
+# Reports (generated outputs)
+# ========================
+reports/*.png
+reports/*.csv
+reports/*.json
+
+# ========================
+# Docker
+# ========================
+.dockerignore
+
+# ========================
+# OS / IDE
+# ========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
 *.egg-info/
 dist/
 build/
