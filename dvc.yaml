@@ -1,0 +1,63 @@
+stages:
+
+  load:
+    cmd: python src/data_loader.py
+    deps:
+      - src/data_loader.py
+      - data/raw/telco_churn.csv
+    outs:
+      - data/raw/telco_churn.csv:
+          cache: true
+
+  feature_engineering:
+    cmd: python -c "
+from src.data_loader import load_data;
+from src.feature_engineering import engineer_features;
+import pandas as pd;
+df = load_data();
+df = engineer_features(df);
+df.to_csv('data/processed/features_temp.csv', index=False);
+print('Feature engineering done.')
+"
+    deps:
+      - src/data_loader.py
+      - src/feature_engineering.py
+      - data/raw/telco_churn.csv
+    outs:
+      - data/processed/features_temp.csv
+
+  preprocess:
+    cmd: python -c "
+import pandas as pd;
+from src.preprocessing import preprocess;
+df = pd.read_csv('data/processed/features_temp.csv');
+clean, _ = preprocess(df);
+print('Preprocessing done.')
+"
+    deps:
+      - src/preprocessing.py
+      - data/processed/features_temp.csv
+    outs:
+      - data/processed/churn_clean.csv
+      - models/scaler.pkl
+
+  train:
+    cmd: python src/main.py
+    deps:
+      - src/main.py
+      - src/train.py
+      - src/evaluate.py
+      - src/tune.py
+      - src/revenue_model.py
+      - src/shap_analysis.py
+      - data/processed/churn_clean.csv
+    outs:
+      - models/best_model.pkl
+    metrics:
+      - reports/metrics.json:
+          cache: false
+    plots:
+      - reports/roc_curves.png:
+          cache: false
+      - reports/shap_summary.png:
+          cache: false

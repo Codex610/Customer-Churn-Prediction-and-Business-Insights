@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+
+  # ── FastAPI — Churn Prediction API ──────────────────────
+  api:
+    build: .
+    container_name: churn_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models       # mount models so no rebuild needed after retraining
+      - ./reports:/app/reports
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    depends_on:
+      - mlflow
+    restart: unless-stopped
+
+  # ── MLflow Tracking Server ───────────────────────────────
+  mlflow:
+    image: python:3.10-slim
+    container_name: mlflow_server
+    command: >
+      bash -c "pip install mlflow --quiet &&
+               mlflow server
+               --backend-store-uri sqlite:///mlflow/mlflow.db
+               --default-artifact-root /mlflow/artifacts
+               --host 0.0.0.0
+               --port 5000"
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_data:/mlflow
+    restart: unless-stopped
+
+volumes:
+  mlflow_data:
