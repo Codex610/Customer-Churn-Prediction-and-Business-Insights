@@ -1,0 +1,5 @@
+[core]
+    remote = dagshub
+['remote "dagshub"']
+    url = s3://Customer-Churn-Prediction-and-Business-Insights
+    endpointurl = https://dagshub.com/api/v1/repo-buckets/s3/codex03080
