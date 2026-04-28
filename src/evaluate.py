@@ -9,7 +9,7 @@ from sklearn.metrics import (
     f1_score, roc_auc_score, confusion_matrix, roc_curve
 )
 
-from config import REPORTS_DIR, MLFLOW_TRACKING_URI, MLFLOW_EXPERIMENT_NAME
+from app_config import REPORTS_DIR, MLFLOW_TRACKING_URI, MLFLOW_EXPERIMENT_NAME
 
 
 def compute_metrics(model, X_test, y_test):

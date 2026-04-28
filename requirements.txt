@@ -30,6 +30,7 @@ ipykernel==6.29.4
 
 # MLflow
 mlflow==2.13.0
+dagshub
 
 # DVC
 dvc==3.51.2

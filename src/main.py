@@ -11,7 +11,7 @@ from evaluate            import evaluate_all, plot_confusion_matrix, plot_roc_cu
 from tune                import get_tuned_model
 from revenue_model       import estimate_revenue_impact
 from shap_analysis       import run_shap
-from config              import TARGET
+from app_config              import TARGET
 
 
 def run_pipeline(tune=False):

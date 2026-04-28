@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 
-from config import REPORTS_DIR
+from app_config import REPORTS_DIR
 
 TREE_MODELS = (RandomForestClassifier, XGBClassifier, LGBMClassifier)
 

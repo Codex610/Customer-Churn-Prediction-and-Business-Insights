@@ -1,5 +1,5 @@
 import pandas as pd
-from config import DATA_RAW
+from app_config import DATA_RAW
 
 
 def load_data(path=DATA_RAW):

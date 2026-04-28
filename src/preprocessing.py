@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import joblib
 
-from config import NUM_COLS, CAT_COLS, TARGET, DATA_PROCESSED, SCALER_PATH
+from .app_config import NUM_COLS, CAT_COLS, TARGET, DATA_PROCESSED, SCALER_PATH
 
 
 def handle_missing(df):

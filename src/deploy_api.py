@@ -3,7 +3,7 @@ import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from config import MODEL_PATH, SCALER_PATH
+from .app_config import MODEL_PATH, SCALER_PATH
 
 # ─── Load model & scaler once at startup ─────────────────
 model  = joblib.load(MODEL_PATH)
@@ -37,7 +37,7 @@ def predict(customer: CustomerInput):
     input_df = pd.DataFrame([customer.dict()])
 
     # Scale numerical columns
-    from config import NUM_COLS
+    from .app_config import NUM_COLS
     num_present = [c for c in NUM_COLS if c in input_df.columns]
     input_df[num_present] = scaler.transform(input_df[num_present])
 

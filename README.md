@@ -121,8 +121,8 @@ customer_churn_project/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/customer_churn_project.git
-cd customer_churn_project
+git clone https://github.com/Codex610/Customer-Churn-Prediction-and-Business-Insights.git
+cd Customer-Churn-Prediction-and-Business-Insights
 ```
 
 ### 2. Create a virtual environment

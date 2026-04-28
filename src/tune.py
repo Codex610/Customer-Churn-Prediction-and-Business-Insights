@@ -5,7 +5,7 @@ from sklearn.model_selection import cross_val_score
 from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 
-from config import RANDOM_STATE, MLFLOW_TRACKING_URI, MLFLOW_EXPERIMENT_NAME
+from app_config import RANDOM_STATE, MLFLOW_TRACKING_URI, MLFLOW_EXPERIMENT_NAME
 
 optuna.logging.set_verbosity(optuna.logging.WARNING)
 warnings.filterwarnings("ignore")

@@ -1,5 +1,5 @@
 import pandas as pd
-from config import TARGET
+from app_config import TARGET
 
 
 def add_tenure_buckets(df):

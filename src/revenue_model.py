@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-from config import REPORTS_DIR, AVG_CUSTOMER_LIFETIME
+from app_config import REPORTS_DIR, AVG_CUSTOMER_LIFETIME
 
 
 def estimate_revenue_impact(df_original, X_test, y_test, model):
@@ -25,7 +25,7 @@ def estimate_revenue_impact(df_original, X_test, y_test, model):
             AVG_CUSTOMER_LIFETIME
         )
     else:
-        from config import AVG_MONTHLY_REVENUE
+        from app_config import AVG_MONTHLY_REVENUE
         revenue_df["revenue_at_risk"] = (
             revenue_df["churn_probability"] *
             AVG_MONTHLY_REVENUE *
