@@ -38,5 +38,5 @@ AVG_MONTHLY_REVENUE   = 65.0
 AVG_CUSTOMER_LIFETIME = 24
 
 # ─── MLflow ──────────────────────────────────────────────
-MLFLOW_TRACKING_URI    = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
+MLFLOW_TRACKING_URI    = os.getenv("MLFLOW_TRACKING_URI", "https://dagshub.com/codex03080/Customer-Churn-Prediction-and-Business-Insights.mlflow")
 MLFLOW_EXPERIMENT_NAME = "telco_churn"

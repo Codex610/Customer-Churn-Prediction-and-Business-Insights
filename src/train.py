@@ -8,6 +8,9 @@ from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 import joblib
 
+import dagshub
+dagshub.init(repo_owner='codex03080', repo_name='Customer-Churn-Prediction-and-Business-Insights', mlflow=True)
+
 from config import (TARGET, TEST_SIZE, RANDOM_STATE, MODEL_PATH, MODELS,
                     MLFLOW_TRACKING_URI, MLFLOW_EXPERIMENT_NAME)
 

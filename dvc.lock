@@ -1,0 +1,102 @@
+schema: '2.0'
+stages:
+  feature_engineering:
+    cmd: python run_feature_engineering.py
+    deps:
+    - path: data/raw/telco_churn.csv
+      hash: md5
+      md5: 0f9de68e012bd3aed5fa7cdc9fc421af
+      size: 977501
+    - path: run_feature_engineering.py
+      hash: md5
+      md5: 618785d39fc8f5896a86fbeae87fa40d
+      size: 261
+    - path: src/data_loader.py
+      hash: md5
+      md5: 89612c71f00d5c0e5cbb75133a1f951f
+      size: 567
+    - path: src/feature_engineering.py
+      hash: md5
+      md5: 188dc8764582a25dd35c054860a7a766
+      size: 1755
+    outs:
+    - path: data/processed/features_temp.csv
+      hash: md5
+      md5: 802ea8939664ba4714e8e1d4801daefa
+      size: 1159701
+  preprocess:
+    cmd: python run_preprocess.py
+    deps:
+    - path: data/processed/features_temp.csv
+      hash: md5
+      md5: 802ea8939664ba4714e8e1d4801daefa
+      size: 1159701
+    - path: run_preprocess.py
+      hash: md5
+      md5: 3a38be01357f9af4951b2fdc4470504b
+      size: 204
+    - path: src/preprocessing.py
+      hash: md5
+      md5: 6d80c8b48dd6e0e1b334b8293bb3591d
+      size: 1914
+    outs:
+    - path: data/processed/churn_clean.csv
+      hash: md5
+      md5: c4b3e58e548e8dad17ed5b0067db95f9
+      size: 1673838
+    - path: models/scaler.pkl
+      hash: md5
+      md5: 59e38519407e4f7c1edf3999abbda07b
+      size: 943
+  train:
+    cmd: python src/main.py
+    deps:
+    - path: data/processed/churn_clean.csv
+      hash: md5
+      md5: c1b3d273072b485f6a9604a5f84b3337
+      size: 1677129
+    - path: src/config.py
+      hash: md5
+      md5: e320f1afa7ad919cd9b734c9c3886785
+      size: 2318
+    - path: src/evaluate.py
+      hash: md5
+      md5: 9ce3b963334175978721c91bf0934c7e
+      size: 4082
+    - path: src/main.py
+      hash: md5
+      md5: 152cba9a98623d3c03fac7f21799c48b
+      size: 3284
+    - path: src/revenue_model.py
+      hash: md5
+      md5: 1ceadb7ec8496a7a03e43a17024abb15
+      size: 1553
+    - path: src/shap_analysis.py
+      hash: md5
+      md5: e49825bbdab45cdad22099952c0376e1
+      size: 2564
+    - path: src/train.py
+      hash: md5
+      md5: aabc3241385eb78db077c7b09b8214c6
+      size: 2636
+    - path: src/tune.py
+      hash: md5
+      md5: 183e9aa0b28108c5c64ae2d600d3d960
+      size: 3503
+    outs:
+    - path: models/best_model.pkl
+      hash: md5
+      md5: f28478387b7489881e95e059b7ee963e
+      size: 2239
+    - path: reports/metrics.json
+      hash: md5
+      md5: 2459b8f5b5ca57d688dcc365b3e4b199
+      size: 668
+    - path: reports/roc_curves.png
+      hash: md5
+      md5: 797d461f342b9ec52b2bf4128a409f3f
+      size: 58729
+    - path: reports/shap_summary.png
+      hash: md5
+      md5: 95445a675354b4d5397c06c8922bc0c2
+      size: 55400

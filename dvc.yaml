@@ -1,41 +1,20 @@
 stages:
 
-  load:
-    cmd: python src/data_loader.py
-    deps:
-      - src/data_loader.py
-      - data/raw/telco_churn.csv
-    outs:
-      - data/raw/telco_churn.csv:
-          cache: true
-
   feature_engineering:
-    cmd: python -c "
-from src.data_loader import load_data;
-from src.feature_engineering import engineer_features;
-import pandas as pd;
-df = load_data();
-df = engineer_features(df);
-df.to_csv('data/processed/features_temp.csv', index=False);
-print('Feature engineering done.')
-"
+    cmd: python run_feature_engineering.py
     deps:
       - src/data_loader.py
       - src/feature_engineering.py
+      - run_feature_engineering.py
       - data/raw/telco_churn.csv
     outs:
       - data/processed/features_temp.csv
 
   preprocess:
-    cmd: python -c "
-import pandas as pd;
-from src.preprocessing import preprocess;
-df = pd.read_csv('data/processed/features_temp.csv');
-clean, _ = preprocess(df);
-print('Preprocessing done.')
-"
+    cmd: python run_preprocess.py
     deps:
       - src/preprocessing.py
+      - run_preprocess.py
       - data/processed/features_temp.csv
     outs:
       - data/processed/churn_clean.csv
@@ -50,6 +29,7 @@ print('Preprocessing done.')
       - src/tune.py
       - src/revenue_model.py
       - src/shap_analysis.py
+      - src/config.py
       - data/processed/churn_clean.csv
     outs:
       - models/best_model.pkl

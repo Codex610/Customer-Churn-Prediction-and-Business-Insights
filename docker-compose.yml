@@ -4,35 +4,20 @@ services:
 
   # ── FastAPI — Churn Prediction API ──────────────────────
   api:
-    build: .
+    image: codex03080/churn-prediction-api:latest
     container_name: churn_api
     ports:
       - "8000:8000"
     volumes:
-      - ./models:/app/models       # mount models so no rebuild needed after retraining
+      - ./models:/app/models
       - ./reports:/app/reports
     environment:
-      - MLFLOW_TRACKING_URI=http://mlflow:5000
-    depends_on:
-      - mlflow
+      # ✅ Pointing to DagsHub — no local mlflow container needed
+      - MLFLOW_TRACKING_URI=https://dagshub.com/codex03080/Customer-Churn-Prediction-and-Business-Insights.mlflow
+      - MLFLOW_TRACKING_USERNAME=codex03080
+      - MLFLOW_TRACKING_PASSWORD=5eda9b2481b1ff77e21abc97468ef4d0ff3b75eb
     restart: unless-stopped
-
-  # ── MLflow Tracking Server ───────────────────────────────
-  mlflow:
-    image: python:3.10-slim
-    container_name: mlflow_server
-    command: >
-      bash -c "pip install mlflow --quiet &&
-               mlflow server
-               --backend-store-uri sqlite:///mlflow/mlflow.db
-               --default-artifact-root /mlflow/artifacts
-               --host 0.0.0.0
-               --port 5000"
-    ports:
-      - "5000:5000"
-    volumes:
-      - mlflow_data:/mlflow
-    restart: unless-stopped
+    # ✅ Removed depends_on mlflow — no local mlflow container anymore
 
 volumes:
   mlflow_data:
